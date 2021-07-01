@@ -39,20 +39,31 @@ const MORSE_TABLE = {
 
 function decode(expr) {
   let lettered = expr.match(/.{1,10}/g)
+  let morze = ''
   for (i in lettered) {
     let dividedLetter = lettered[i].match(/.{1,2}/g)
-    
     let converted = []
-    for (s in dividedLetter) {
-      if (dividedLetter[s] == '10') {
+    for (j in dividedLetter) {
+      if (dividedLetter[j] == '10') {
         converted.push('.')
-      } else if (dividedLetter[s] == '11') {
+      } else if (dividedLetter[j] == '11') {
         converted.push('-')
       }
     }
-    let decoded = converted.join('')
-    console.log(decoded)
+    let joined = converted.join('').split(' ')
+    for (k in joined) {
+      
+      if (joined[k] == '') {
+        morze+=' '
+      }
+      for (l in MORSE_TABLE) {
+        if (l == joined[k]) {
+          morze+=MORSE_TABLE[l]
+        }
+      }
+    }
   }
+  return morze
 }
 
 module.exports = {
